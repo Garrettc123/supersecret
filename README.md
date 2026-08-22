@@ -1,54 +1,38 @@
 # SuperSecret
 
-**Stupid-simple, zero-leak secret management with unprecedented automation.**
+**Full implementation – stupid-simple, zero-leak secret management.**
 
-No more typing secrets into terminals. No more secrets in history, process lists, or environment variables.  
-One master password. Encrypted at rest. Auto-injection. Ghost clipboard. Self-destruct.
+Invisible input. Strong encryption. Ghost clipboard. Auto mode. Background agent.
 
-## Features
-
-- Invisible input (getpass)
-- Strong encryption (scrypt + stream cipher, pure Python, zero deps)
-- Automatic high-entropy detection & vaulting
-- Context-aware injection for common tools
-- Clipboard that self-clears
-- Shell integration (bash/zsh)
-- Zero external dependencies for core crypto
-
-## Quick Install
-
-```bash
-curl -sL https://raw.githubusercontent.com/Garrettc123/supersecret/main/install.sh | bash
-```
-
-Or clone and run:
+## Install
 
 ```bash
 git clone https://github.com/Garrettc123/supersecret.git
 cd supersecret
 ./install.sh
+source ~/.bashrc   # or ~/.zshrc
 ```
 
-## Usage
+## Commands
 
 ```bash
-secret set <name>          # store a secret (invisible input)
-secret get <name>          # copy to clipboard (auto-clears in 30s)
-secret list                # list vaulted names
-secret rm <name>           # delete
-secret watch               # start background agent
-secret auto on|off         # enable/disable zero-touch mode
-secret status              # live status
+secret set <name>       # store (invisible)
+secret get <name>       # ghost clipboard (auto-clear)
+secret list
+secret rm <name>
+secret auto on|off
+secret watch            # background agent
+secret status
 ```
 
-## Security Model
+## Security
 
-- Secrets never appear in argv, environment, or shell history
-- Encrypted with master password derived via scrypt (N=2^14)
-- Files stored as `~/.secrets/*.sec` with mode 600
-- Memory is zeroed after use where possible
-- Clipboard auto-clears after 30 seconds
+- scrypt (N=2^15) key derivation
+- Random nonce + SHA-256 stream cipher
+- Files mode 600 under ~/.secrets
+- No secrets in argv / history / env
+- Clipboard self-destructs
 
 ## License
 
-MIT — do whatever you want. Just don’t be stupid with your secrets.
+MIT
